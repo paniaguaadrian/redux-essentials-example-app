@@ -1,5 +1,5 @@
 // Every componentSlice need the createSlice() method from the reduxjs/toolkit
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, nanoid } from '@reduxjs/toolkit'
 
 // Create an initial state for this component
 const initialState = [
@@ -13,8 +13,19 @@ const postsSlice = createSlice({
   initialState,
   reducers: {
     // Seems like (state, action) is something present everytime
-    postAdded(state, action) {
-      state.push(action.payload)
+    postAdded: {
+      reducer(state, action) {
+        state.push(action.payload)
+      },
+      prepare(title, content) {
+        return {
+          payload: {
+            id: nanoid(),
+            title,
+            content,
+          },
+        }
+      },
     },
 
     postUpdated(state, action) {
