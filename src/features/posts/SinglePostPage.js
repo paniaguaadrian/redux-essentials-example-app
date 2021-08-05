@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 
 // Custom Components
 import { PostAuthor } from './PostAuthor'
+import { TimeAgo } from './TimeAgo'
 
 export const SinglePostPage = ({ match }) => {
   const { postId } = match.params
@@ -25,7 +26,10 @@ export const SinglePostPage = ({ match }) => {
       <article className="post">
         <h2>{post.title}</h2>
         <p className="post-content">{post.content}</p>
-        <PostAuthor userId={post.user} />
+        <p>
+          <PostAuthor userId={post.user} />
+          <TimeAgo timestamp={post.date} />
+        </p>
         <Link to={`/editpost/${post.id}`} className="button">
           Edit Post
         </Link>
